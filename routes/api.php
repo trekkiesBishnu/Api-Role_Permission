@@ -18,11 +18,12 @@ use App\Http\Controllers\Api\RegisterController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/login',[LoginController::class,'login']);
+Route::post('/login',[LoginController::class,'login'])->name('login');
 Route::post('/register',[RegisterController::class,'register']);
 
 Route::middleware(['auth:api'])->group( function() {
 
+        // Route::get('/category',[CategoryController::class,'index'])->middleware(['role:Admin']);
         Route::get('/category',[CategoryController::class,'index'])->middleware(['can:category.view']);
         Route::post('/category',[CategoryController::class,'store'])->middleware(['can:category.create']);
         Route::get('/category/{id}',[CategoryController::class,'show'])->middleware(['can:category.view']);
@@ -31,7 +32,7 @@ Route::middleware(['auth:api'])->group( function() {
     
     
         Route::controller(TaskController::class)->group(function(){
-            Route::get('/task','index')->middleware(['can:task.view']);
+            Route::get('/task','index')->middleware(['role:Admin']);
             Route::post('/task','store')->middleware(['can:task.create']);
             Route::get('/task/{id}','show')->middleware(['can:task.view']);
             Route::post('/task-update','update')->middleware(['can:task.update']);

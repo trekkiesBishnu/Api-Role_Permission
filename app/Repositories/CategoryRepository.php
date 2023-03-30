@@ -21,14 +21,14 @@ class CategoryRepository implements CategoryRepositoryInterface {
 
     public function destroy($id){
         
-        // $category= Category::find($id);
-        // if($category){
-        //     $category->delete();
-          
-        // }
-        // else{
-        //     return null;
-        // }
+        $category= Category::find($id);
+        if($category){
+            $category->delete();
+          return $category;
+        }
+        else{
+            return null;
+        }
        
     }
 }

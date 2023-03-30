@@ -58,11 +58,16 @@ class TaskRepository implements TaskRepositoryInterface
           
             if($task){
                 $task->update($data);
-                
+                if($data['image']){
+                  
                     if($task->hasMedia('task_image')){
                         $task->clearMediaCollection('task_image');
                         $task->addMedia($data['image'])->toMediaCollection('task_image');
+                    }else{
+                        $task->addMedia($data['image'])->toMediaCollection('task_image');
+
                     }
+                }
                 
                 // dd( $task['status']);
                 // if($task['status']=="Acepted"){

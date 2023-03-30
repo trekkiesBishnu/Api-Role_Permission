@@ -18,7 +18,7 @@ class TaskController extends Controller
 
     public function index(){
        $tasks= $this->task->all();
-       return response()->json(['message'=>$tasks]);
+       return response()->json(['data'=>$tasks]);
     }
 
     public function store(Request $request){
@@ -37,17 +37,17 @@ class TaskController extends Controller
         $validate=$this->validate_data($data,$rules);
         if($validate['response']){
           $tasks=  $this->task->store($data);
-            return response()->json(['message'=>$tasks]);
+            return response()->json(['data'=>$tasks]);
         }
         else{
-            return response()->json(['message'=>$validate]);
+            return response()->json(['data'=>$validate]);
         }
 
     }
 
     public function show($id){
       $task=  $this->task->show($id);
-        return response()->json(['message'=>$task]);
+        return response()->json(['data'=>$task]);
     }
 
     public function update(Request $request){
@@ -67,10 +67,10 @@ class TaskController extends Controller
         if($validate['response']){
             $task=$this->task->update($data);
             
-            return response()->json(['message'=>$task]);
+            return response()->json(['data'=>$task]);
         }
         else{
-            return response()->json(['message'=>$validate]);
+            return response()->json(['data'=>$validate]);
         }
     }
 
