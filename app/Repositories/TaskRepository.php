@@ -34,7 +34,7 @@ class TaskRepository implements TaskRepositoryInterface
                     $data['description']=$task->description;
                     $data['user_id']=$task->user_id;
                     $data['category_id']=$task->category_id;
-                    $data['status']=$task->status;
+                    $data['status']="pending";
                      $email=$user->email;
                      Notification::route('mail', $email)->notify(new TaskNotify($data) );
                  }
@@ -55,21 +55,24 @@ class TaskRepository implements TaskRepositoryInterface
         $category=Category::find($data['category_id']);
         if($category){
             $task= Task::where('id',$data['id'])->first();
-           
+          
             if($task){
                 $task->update($data);
-                if($task->hasMedia('task_image')){
-                    $task->clearMediaCollection('task_image');
-                    $task->addMedia($data['image'])->toMediaCollection('task_image');
-                }
+                
+                    if($task->hasMedia('task_image')){
+                        $task->clearMediaCollection('task_image');
+                        $task->addMedia($data['image'])->toMediaCollection('task_image');
+                    }
+                
                 // dd( $task['status']);
-                if($task['status']=="Acepted"){
-                    $status=$task['status'];
+                // if($task['status']=="Acepted"){
+                //     $status=$task['status'];
                  
-                }elseif ($task['status']=="Reject") {
-                    $status=$task['status'];
+                // }elseif ($task['status']=="Reject") {
+                //     $status=$task['status'];
                    
-                }
+                // }
+              
                 //for sending Admin And superAdmin only 
                 $data['message']="update task ";
                 $data['name']=$task->name;
@@ -99,7 +102,6 @@ class TaskRepository implements TaskRepositoryInterface
         $task=Task::find($id);
        if($task){
            $task->delete();
-           return response()->json(['message' =>"Task deleted Successfully"]);
        }
        else{
            return "Id Already Deleted";

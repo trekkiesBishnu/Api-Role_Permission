@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Models\Task;
 use App\Models\Category;
 
 class CategoryRepository implements CategoryRepositoryInterface {
@@ -19,14 +20,15 @@ class CategoryRepository implements CategoryRepositoryInterface {
     }   
 
     public function destroy($id){
-        $category= Category::find($id);
-        if($category){
-            $category->delete();
+        
+        // $category= Category::find($id);
+        // if($category){
+        //     $category->delete();
           
-        }
-        else{
-            return null;
-        }
+        // }
+        // else{
+        //     return null;
+        // }
        
     }
 }

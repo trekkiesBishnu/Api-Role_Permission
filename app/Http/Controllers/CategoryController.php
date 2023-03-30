@@ -58,6 +58,7 @@ class CategoryController extends Controller
     }
 
         public function destroy($id){
+           
             $category=$this->categoryRepo->destroy($id);
             if($category){
                 return response()->json(['message'=>$category,'status'=>'Category Deleted Successfully']);

@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\TaskRepositoryInterface;
@@ -74,7 +76,7 @@ class TaskController extends Controller
 
     public function delete($id){
       $task=  $this->task->destroy($id);
-        return response()->json(['message'=>$task]) ;
+        return response()->json(['message'=>'Task deleted Successfully']) ;
     }
     public function validate_data($data,$rules){
         $validated_ctr=new ValidatorController();
